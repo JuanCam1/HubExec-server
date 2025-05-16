@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "generated/prisma/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model State {
+  id         Int          @id @default(autoincrement())
+  state      String       @unique @default("Activo")
+  user       User[]       @relation("StateUser")
+  executable Executable[] @relation("StateExecutable")
+}
+
+model Platform {
+  id                Int                 @id @default(autoincrement())
+  name              String
+  historyExecutable HistoryExecutable[] @relation("PlatformHistoryExecutable")
+}
+
+model Executable {
+  id          String              @id @default(cuid())
+  name        String              @unique
+  description String
+  type_app    String
+  stateId     Int
+  state       State               @relation("StateExecutable", fields: [stateId], references: [id])
+  posts       Post[]
+  history     HistoryExecutable[] @relation("HistoryExecutable")
+}
+
+model HistoryExecutable {
+  id             String     @id @default(cuid())
+  executableId   String
+  executable     Executable @relation("HistoryExecutable", fields: [executableId], references: [id])
+  pathExecutable String
+  version        String     @unique
+  createdAt      DateTime
+  userId         Int
+  user           User       @relation("HistoryUser", fields: [userId], references: [id])
+  category_app   String
+  platformId     Int
+  platform       Platform   @relation("PlatformHistoryExecutable", fields: [platformId], references: [id])
+}
+
+model User {
+  id                     Int                 @id @default(autoincrement())
+  name                   String
+  email                  String              @unique
+  password               String
+  phone                  String
+  reset_password_token   String?
+  reset_password_expires DateTime?
+  sessions               Session[]           @relation("SessionUser")
+  stateId                Int                 @default(1)
+  state                  State               @relation("StateUser", fields: [stateId], references: [id])
+  posts                  Post[]
+  history                HistoryExecutable[] @relation("HistoryUser")
+}
+
+model Session {
+  id           String  @id @default(cuid())
+  token        String? @unique
+  date_created String
+  time_created String
+  type         String
+  userId       Int
+  user         User    @relation("SessionUser", fields: [userId], references: [id])
+}
+
+model Post {
+  id           Int        @id @default(autoincrement())
+  userId       Int
+  executableId String
+  user         User       @relation(fields: [userId], references: [id])
+  executable   Executable @relation(fields: [executableId], references: [id])
+  createdAt    DateTime   @default(now())
+  comment      String?
+}
+
+model Configuration {
+  id    Int   @id @default(autoincrement())
+  theme Theme @default(light)
+}
+
+enum Theme {
+  light
+  dark
+  system
+}
