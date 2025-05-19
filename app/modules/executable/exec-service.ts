@@ -1,45 +1,43 @@
-// import {
-// 	builderByIdDao,
-// 	changeBuilderStateDao,
-// 	createMultipleBuilderDao,
-// 	createUniqueBuilderDao,
-// 	deleteBuilderDao,
-// 	getBuildersDao,
-// 	updateBuilderDao,
-// } from "./exec-dao";
+import {
+	changeExecutableStateDao,
+	createExecutableDao,
+	deleteExecutableDao,
+	getExecutablesDao,
+	createHistoryExecutableDao,
+	executableByIdDao,
+} from "./exec-dao";
 
-// export const getBuildersService = async (state: StateTypeModelI) => {
-// 	return await getBuildersDao(state);
+export const getExecutablesService = async (data: PaginationAllI) => {
+	return await getExecutablesDao(data);
+};
+
+export const createExecutableService = async (
+	data: Omit<ExecutableModelI, "id">,
+) => {
+	return await createExecutableDao(data);
+};
+
+// export const updateExecutableService = async (data: ExecutableModelI) => {
+// 	return await createExecutableDao(data);
 // };
 
-// export const createUniqueBuilderService = async (
-// 	name: string,
-// 	stateId: number,
-// ) => {
-// 	return await createUniqueBuilderDao(name, stateId);
-// };
+export const deleteExecutableService = async (id: string) => {
+	return await deleteExecutableDao(id);
+};
 
-// export const createMultipleBuilderService = async (
-// 	builders: MultipleModelI,
-// ) => {
-// 	return await createMultipleBuilderDao(builders);
-// };
+export const executableByIdService = async (id: string) => {
+	return await executableByIdDao(id);
+};
 
-// export const changeBuilderStateService = async (
-// 	id: number,
-// 	stateId: number,
-// ) => {
-// 	return await changeBuilderStateDao(id, stateId);
-// };
+export const changeExecutableStateService = async (
+	id: string,
+	stateId: number,
+) => {
+	return await changeExecutableStateDao(id, stateId);
+};
 
-// export const deleteBuilderService = async (id: number) => {
-// 	return await deleteBuilderDao(id);
-// };
-
-// export const updateBuilderService = async (id: number) => {
-// 	return await updateBuilderDao(id);
-// };
-
-// export const builderByIdService = async (id: number) => {
-// 	return await builderByIdDao(id);
-// };
+export const createHistoryExecutableService = async (
+	data: HistoryExecutableModelI,
+) => {
+	return await createHistoryExecutableDao(data);
+};

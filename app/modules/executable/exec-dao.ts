@@ -1,5 +1,6 @@
 import { StateEnum } from "../../const/state-const";
 import { capitalizeText } from "../../lib/capitalize";
+import { currentDate } from "../../lib/current-date-hour";
 import { prisma } from "../../lib/prisma";
 
 export const getExecutablesDao = async (data: PaginationAllI) => {
@@ -52,7 +53,9 @@ export const getExecutablesDao = async (data: PaginationAllI) => {
 	return response;
 };
 
-export const createExecutableDao = async (data: ExecutableModelI) => {
+export const createExecutableDao = async (
+	data: Omit<ExecutableModelI, "id">,
+) => {
 	const { name, description, type_app, stateId } = data;
 
 	const nameCapitalize = capitalizeText(name);
@@ -68,32 +71,6 @@ export const createExecutableDao = async (data: ExecutableModelI) => {
 	});
 
 	return executable;
-};
-
-export const createHistoryExecutable = async (
-	data: HistoryExecutableModelI,
-) => {
-	const {
-		executableId,
-		version,
-		pathExecutable,
-		userId,
-		category_app,
-		platformId,
-	} = data;
-
-	const historyExecutable = await prisma.historyExecutable.create({
-		data: {
-			executableId,
-			version,
-			pathExecutable,
-			userId,
-			category_app,
-			platformId,
-		},
-	});
-
-	return historyExecutable;
 };
 
 export const executableByIdDao = async (id: string) => {
@@ -148,4 +125,32 @@ export const deleteExecutableDao = async (id: string) => {
 	});
 
 	return deleteExecutable;
+};
+
+export const createHistoryExecutableDao = async (
+	data: HistoryExecutableModelI,
+) => {
+	const dateCurrent = currentDate();
+	const {
+		executableId,
+		version,
+		pathExecutable,
+		userId,
+		category_app,
+		platformId,
+	} = data;
+
+	const historyExecutable = await prisma.historyExecutable.create({
+		data: {
+			executableId,
+			version,
+			pathExecutable,
+			userId,
+			category_app,
+			platformId,
+			createdAt: dateCurrent,
+		},
+	});
+
+	return historyExecutable;
 };

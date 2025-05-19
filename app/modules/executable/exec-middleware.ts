@@ -1,21 +1,23 @@
 import { check } from "express-validator";
 
-export const builderStateSchema = [
-  check("state").exists().isIn(["Active", "Inactive", "All"])
-]
+export const createExecutableSchema = [
+	check("name").exists(),
+	check("description").exists(),
+	check("type_app").exists(),
+	check("stateId").exists(),
+];
 
-export const createUniqueBuilderSchema = [
-  check("name").exists(),
-  check("stateId").exists().isFloat({
-    min: 0,
-    max: 3
-  })
-]
+export const changeExecutableSchema = [
+	check("id").exists(),
+	check("stateId").exists(),
+];
 
-export const createMultipleBuilderSchema = [
-  check("init").exists(),
-  check("limit").exists().isFloat({
-    min: 0,
-    max: 100
-  })
-]
+export const createHistoryExecutableSchema = [
+	check("version").exists(),
+	check("pathExecutable").exists(),
+	check("executableId").exists(),
+	check("stateId").exists(),
+	check("category_app").exists(),
+	check("platformId").exists(),
+	check("userId").exists(),
+];

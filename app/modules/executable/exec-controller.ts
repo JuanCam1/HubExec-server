@@ -1,130 +1,80 @@
-// import type { Request, Response } from "express";
-// import { StatusCodes } from "http-status-codes";
+import type { Request, Response } from "express";
+import { StatusCodes } from "http-status-codes";
 
-// import {
-// 	createUniqueBuilderService,
-// 	getBuildersService,
-// 	builderByIdService,
-// 	changeBuilderStateService,
-// 	deleteBuilderService,
-// 	updateBuilderService,
-// 	createMultipleBuilderService,
-// } from "./exec-service";
-// import { sendResponse } from "../../util/sendResponse";
-// import { matchedData } from "express-validator";
-// import { validateErrorCatch } from "../../util/validateError";
+import { sendResponse } from "../../util/sendResponse";
+import { matchedData } from "express-validator";
+import { validateErrorCatch } from "../../util/validateError";
+import {
+	changeExecutableStateService,
+	createExecutableService,
+	createHistoryExecutableService,
+	deleteExecutableService,
+	executableByIdService,
+	getExecutablesService,
+} from "./exec-service";
 
-// export const getBuilders = async (req: Request, res: Response) => {
-// 	try {
-// 		const { state } = matchedData<{ state: StateTypeModelI }>(req);
+export const getExecutables = async (req: Request, res: Response) => {
+	try {
+		const data = matchedData<PaginationAllI>(req);
+		const executables = await getExecutablesService(data);
+		sendResponse(res, "success", StatusCodes.OK, "getExecutables", executables);
+	} catch (error) {
+		validateErrorCatch(res, error);
+	}
+};
 
-// 		const builders = await getBuildersService(state);
-// 		sendResponse<BuilderResModelI[]>(
-// 			res,
-// 			"success",
-// 			StatusCodes.OK,
-// 			"getAllBuilders",
-// 			builders,
-// 		);
-// 	} catch (error) {
-// 		validateErrorCatch(res, error);
-// 	}
-// };
+export const createExecutable = async (req: Request, res: Response) => {
+	try {
+		const data = matchedData<ExecutableModelI>(req);
+		const exec = await createExecutableService(data);
+		sendResponse(res, "success", StatusCodes.OK, "createExecutable", exec);
+	} catch (error) {
+		validateErrorCatch(res, error);
+	}
+};
 
-// export const createUniqueBuilder = async (req: Request, res: Response) => {
-// 	try {
-// 		const { name, stateId } = matchedData<{ name: string; stateId: number }>(
-// 			req,
-// 		);
-// 		const builders = await createUniqueBuilderService(name, stateId);
-// 		sendResponse(
-// 			res,
-// 			"success",
-// 			StatusCodes.OK,
-// 			"Se ha creado el builder",
-// 			builders,
-// 		);
-// 	} catch (error) {
-// 		validateErrorCatch(res, error);
-// 	}
-// };
+export const deleteExecutable = async (req: Request, res: Response) => {
+	try {
+		const { id } = matchedData<{ id: string }>(req);
+		const exec = await deleteExecutableService(id);
+		sendResponse(res, "success", StatusCodes.OK, "deleteExecutable", exec);
+	} catch (error) {
+		validateErrorCatch(res, error);
+	}
+};
 
-// export const createMultipleBuilder = async (req: Request, res: Response) => {
-// 	try {
-// 		const builders = matchedData<MultipleModelI>(req);
-// 		const buildersCreated = await createMultipleBuilderService(builders);
-// 		sendResponse(
-// 			res,
-// 			"success",
-// 			StatusCodes.OK,
-// 			"Se han creado los builders",
-// 			buildersCreated,
-// 		);
-// 	} catch (error) {
-// 		validateErrorCatch(res, error);
-// 	}
-// };
+export const executableById = async (req: Request, res: Response) => {
+	try {
+		const { id } = matchedData<{ id: string }>(req);
+		const exec = await executableByIdService(id);
+		sendResponse(res, "success", StatusCodes.OK, "executableById", exec);
+	} catch (error) {
+		validateErrorCatch(res, error);
+	}
+};
 
-// export const changeBuilderState = async (req: Request, res: Response) => {
-// 	try {
-// 		const { id, stateId } = matchedData<{ id: number; stateId: number }>(req);
-// 		const builders = await changeBuilderStateService(id, stateId);
-// 		sendResponse(
-// 			res,
-// 			"success",
-// 			StatusCodes.OK,
-// 			"Se ha cambiado el estado del builder",
-// 			builders,
-// 		);
-// 	} catch (error) {
-// 		validateErrorCatch(res, error);
-// 	}
-// };
+export const changeExecutableState = async (req: Request, res: Response) => {
+	try {
+		const { id, stateId } = matchedData<{ id: string; stateId: number }>(req);
+		const exec = await changeExecutableStateService(id, stateId);
+		sendResponse(res, "success", StatusCodes.OK, "changeExecutableState", exec);
+	} catch (error) {
+		validateErrorCatch(res, error);
+	}
+};
 
-// export const deleteBuilder = async (req: Request, res: Response) => {
-// 	try {
-// 		const { id } = matchedData<{ id: number }>(req);
-// 		const builders = await deleteBuilderService(id);
-// 		sendResponse(
-// 			res,
-// 			"success",
-// 			StatusCodes.OK,
-// 			"Se ha eliminado el builder",
-// 			builders,
-// 		);
-// 	} catch (error) {
-// 		validateErrorCatch(res, error);
-// 	}
-// };
-
-// export const builderById = async (req: Request, res: Response) => {
-// 	try {
-// 		const { id } = matchedData<{ id: number }>(req);
-// 		const builders = await builderByIdService(id);
-// 		sendResponse(
-// 			res,
-// 			"success",
-// 			StatusCodes.OK,
-// 			"Se ha obtenido el builder",
-// 			builders,
-// 		);
-// 	} catch (error) {
-// 		validateErrorCatch(res, error);
-// 	}
-// };
-
-// export const updateBuilder = async (req: Request, res: Response) => {
-// 	try {
-// 		const { id } = matchedData<{ id: number }>(req);
-// 		const builders = await updateBuilderService(id);
-// 		sendResponse(
-// 			res,
-// 			"success",
-// 			StatusCodes.OK,
-// 			"Se ha actualizado el builder",
-// 			builders,
-// 		);
-// 	} catch (error) {
-// 		validateErrorCatch(res, error);
-// 	}
-// };
+export const createHistoryExecutable = async (req: Request, res: Response) => {
+	try {
+		const data = matchedData<HistoryExecutableModelI>(req);
+		const exec = await createHistoryExecutableService(data);
+		sendResponse(
+			res,
+			"success",
+			StatusCodes.OK,
+			"createHistoryExecutable",
+			exec,
+		);
+	} catch (error) {
+		validateErrorCatch(res, error);
+	}
+};

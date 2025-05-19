@@ -1,5 +1,5 @@
-import { getResidentsDao } from "./user-dao";
+// import { getResidentsDao } from "./user-dao";
 
-export const getResidentsService = async () => {
-  return await getResidentsDao();
-};
+// export const getResidentsService = async () => {
+//   return await getResidentsDao();
+// };

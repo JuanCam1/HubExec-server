@@ -1,6 +1,5 @@
-import { z } from "zod";
+// import { z } from "zod";
 
+// export const ResidentCreateSchema = z.object({
 
-export const ResidentCreateSchema = z.object({
-
-})
+// })

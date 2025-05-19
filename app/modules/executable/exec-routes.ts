@@ -1,26 +1,49 @@
-// import { Router } from "express";
-// import {
-//   builderById,
-//   changeBuilderState,
-//   createMultipleBuilder,
-//   createUniqueBuilder,
-//   deleteBuilder,
-//   getBuilders,
-//   updateBuilder
-// } from "./exec-controller";
-// import { builderStateSchema, createMultipleBuilderSchema, createUniqueBuilderSchema } from "./exec-middleware";
-// import { validationErrors } from "../../middleware/validation-middleware";
-// import { idSchema } from "../../middleware/id-middleware";
-// import { changeStateSchema } from "../../middleware/change-state-middleware";
+import { Router } from "express";
+import { validationErrors } from "../../middleware/validation-middleware";
+import {
+	changeExecutableState,
+	createExecutable,
+	createHistoryExecutable,
+	deleteExecutable,
+	executableById,
+	getExecutables,
+} from "./exec-controller";
+import { getAllSchema } from "../../middleware/get-all-middleware";
+import {
+	changeExecutableSchema,
+	createExecutableSchema,
+	createHistoryExecutableSchema,
+} from "./exec-middleware";
+import { idSchema } from "../../middleware/id-middleware";
 
-// const builderRouter = Router();
+const execRouter = Router();
 
-// builderRouter.get("/:state", builderStateSchema, validationErrors, getBuilders);
-// builderRouter.post("/", createUniqueBuilderSchema, validationErrors, createUniqueBuilder);
-// builderRouter.post("/multiple", createMultipleBuilderSchema, validationErrors, createMultipleBuilder);
-// builderRouter.post("/change", changeStateSchema, validationErrors, changeBuilderState);
-// builderRouter.delete("/:id", idSchema, validationErrors, deleteBuilder);
-// builderRouter.put("/", updateBuilder);
-// builderRouter.get("/byId/:id", idSchema, validationErrors, builderById);
+execRouter.post("/", getAllSchema, validationErrors, getExecutables);
 
-// export default builderRouter;
+execRouter.post(
+	"/create-exec",
+	createExecutableSchema,
+	validationErrors,
+	createExecutable,
+);
+
+execRouter.get("/:id", idSchema, validationErrors, executableById);
+
+execRouter.post(
+	"/change",
+	changeExecutableSchema,
+	validationErrors,
+	changeExecutableState,
+);
+
+execRouter.delete("/:id", idSchema, validationErrors, deleteExecutable);
+
+execRouter.post(
+	"/",
+	createHistoryExecutableSchema,
+	validationErrors,
+	createHistoryExecutable,
+);
+// execRouter.put("/", updateBuilder);
+
+export default execRouter;

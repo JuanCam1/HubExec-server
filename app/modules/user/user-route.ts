@@ -1,8 +1,8 @@
-import { Router } from "express";
-import { getResidents } from "./user-controller";
+// import { Router } from "express";
+// import { getResidents } from "./user-controller";
 
-const residentRouter = Router();
+// const residentRouter = Router();
 
-residentRouter.get("/", getResidents);
+// residentRouter.get("/", getResidents);
 
-export default residentRouter;
+// export default residentRouter;
