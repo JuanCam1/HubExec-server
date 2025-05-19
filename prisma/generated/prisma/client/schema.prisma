@@ -15,10 +15,18 @@ model State {
   executable Executable[] @relation("StateExecutable")
 }
 
+model Category {
+  id       Int        @id @default(autoincrement())
+  name     String     @unique
+  Platform Platform[] @relation("CategoryPlatform")
+}
+
 model Platform {
   id                Int                 @id @default(autoincrement())
   name              String
   historyExecutable HistoryExecutable[] @relation("PlatformHistoryExecutable")
+  category          Category            @relation("CategoryPlatform", fields: [categoryId], references: [id])
+  categoryId        Int
 }
 
 model Executable {
@@ -37,11 +45,11 @@ model HistoryExecutable {
   executableId   String
   executable     Executable @relation("HistoryExecutable", fields: [executableId], references: [id])
   pathExecutable String
+  filename       String
   version        String     @unique
   createdAt      DateTime
   userId         Int
   user           User       @relation("HistoryUser", fields: [userId], references: [id])
-  category_app   String
   platformId     Int
   platform       Platform   @relation("PlatformHistoryExecutable", fields: [platformId], references: [id])
 }

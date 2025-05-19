@@ -66,7 +66,14 @@ export const changeExecutableState = async (req: Request, res: Response) => {
 export const createHistoryExecutable = async (req: Request, res: Response) => {
 	try {
 		const data = matchedData<HistoryExecutableModelI>(req);
-		const exec = await createHistoryExecutableService(data);
+		const execForm = req?.file;
+
+		const dataHistory = {
+			...data,
+			execForm,
+		};
+
+		const exec = await createHistoryExecutableService(dataHistory);
 		sendResponse(
 			res,
 			"success",

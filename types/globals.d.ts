@@ -10,6 +10,7 @@ import type {
 	ExecutableResponseModel,
 	HistoryExecutableModel,
 	HistoryExecutableResponseModel,
+	HistoryExecutableMulterModel,
 } from "./executable-model";
 import type { PlatformModel } from "./platform-model";
 
@@ -36,6 +37,7 @@ declare global {
 	type ExecutableModelI = ExecutableModel;
 	type ExecutableResponseModelI = ExecutableResponseModel;
 	type HistoryExecutableModelI = HistoryExecutableModel;
+	type HistoryExecutableMulterModelI = HistoryExecutableMulterModel;
 	type HistoryExecutableResponseModelI = HistoryExecutableResponseModel;
 	type PlatformModelI = PlatformModel;
 }

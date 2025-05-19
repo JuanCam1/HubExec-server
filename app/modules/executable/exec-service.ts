@@ -37,7 +37,7 @@ export const changeExecutableStateService = async (
 };
 
 export const createHistoryExecutableService = async (
-	data: HistoryExecutableModelI,
+	data: HistoryExecutableMulterModelI,
 ) => {
 	return await createHistoryExecutableDao(data);
 };

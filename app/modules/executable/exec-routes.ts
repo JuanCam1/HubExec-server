@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, type Request, type Response } from "express";
 import { validationErrors } from "../../middleware/validation-middleware";
 import {
 	changeExecutableState,
@@ -15,8 +15,11 @@ import {
 	createHistoryExecutableSchema,
 } from "./exec-middleware";
 import { idSchema } from "../../middleware/id-middleware";
+import { pathConst } from "../../const/path-const";
+import { multerConfig } from "../../lib/multer-config";
 
 const execRouter = Router();
+const upload = multerConfig(pathConst.destinationExec);
 
 execRouter.post("/", getAllSchema, validationErrors, getExecutables);
 
@@ -39,10 +42,15 @@ execRouter.post(
 execRouter.delete("/:id", idSchema, validationErrors, deleteExecutable);
 
 execRouter.post(
-	"/",
+	"/history",
+	upload.single("execExecutable"),
 	createHistoryExecutableSchema,
 	validationErrors,
-	createHistoryExecutable,
+	// createHistoryExecutable,
+	(req: Request, res: Response) => {
+		console.log("🟡 Archivo recibido en post:", req.file);
+		res.send("Hello World");
+	},
 );
 // execRouter.put("/", updateBuilder);
 

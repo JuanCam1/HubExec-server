@@ -125,9 +125,15 @@ exports.Prisma.StateScalarFieldEnum = {
   state: 'state'
 };
 
-exports.Prisma.PlatformScalarFieldEnum = {
+exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
   name: 'name'
+};
+
+exports.Prisma.PlatformScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  categoryId: 'categoryId'
 };
 
 exports.Prisma.ExecutableScalarFieldEnum = {
@@ -142,10 +148,10 @@ exports.Prisma.HistoryExecutableScalarFieldEnum = {
   id: 'id',
   executableId: 'executableId',
   pathExecutable: 'pathExecutable',
+  filename: 'filename',
   version: 'version',
   createdAt: 'createdAt',
   userId: 'userId',
-  category_app: 'category_app',
   platformId: 'platformId'
 };
 
@@ -191,6 +197,10 @@ exports.Prisma.StateOrderByRelevanceFieldEnum = {
   state: 'state'
 };
 
+exports.Prisma.CategoryOrderByRelevanceFieldEnum = {
+  name: 'name'
+};
+
 exports.Prisma.PlatformOrderByRelevanceFieldEnum = {
   name: 'name'
 };
@@ -206,8 +216,8 @@ exports.Prisma.HistoryExecutableOrderByRelevanceFieldEnum = {
   id: 'id',
   executableId: 'executableId',
   pathExecutable: 'pathExecutable',
-  version: 'version',
-  category_app: 'category_app'
+  filename: 'filename',
+  version: 'version'
 };
 
 exports.Prisma.NullsOrder = {
@@ -243,6 +253,7 @@ exports.Theme = exports.$Enums.Theme = {
 
 exports.Prisma.ModelName = {
   State: 'State',
+  Category: 'Category',
   Platform: 'Platform',
   Executable: 'Executable',
   HistoryExecutable: 'HistoryExecutable',

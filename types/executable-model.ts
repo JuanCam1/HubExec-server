@@ -20,10 +20,12 @@ export interface ExecutableResponseModel {
 export interface HistoryExecutableModel {
 	executableId: string;
 	version: string;
-	pathExecutable: string;
 	userId: number;
-	category_app: string;
 	platformId: number;
+}
+
+export interface HistoryExecutableMulterModel extends HistoryExecutableModelI {
+	execForm: Express.Multer.File | undefined;
 }
 
 export interface HistoryExecutableResponseModel {

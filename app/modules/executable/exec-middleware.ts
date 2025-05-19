@@ -14,10 +14,8 @@ export const changeExecutableSchema = [
 
 export const createHistoryExecutableSchema = [
 	check("version").exists(),
-	check("pathExecutable").exists(),
 	check("executableId").exists(),
-	check("stateId").exists(),
-	check("category_app").exists(),
 	check("platformId").exists(),
 	check("userId").exists(),
 ];
+// agregar estado en history

@@ -1,4 +1,5 @@
 import { StateEnum } from "../../const/state-const";
+import { NotFoundError } from "../../error/not-found-error";
 import { capitalizeText } from "../../lib/capitalize";
 import { currentDate } from "../../lib/current-date-hour";
 import { prisma } from "../../lib/prisma";
@@ -128,27 +129,27 @@ export const deleteExecutableDao = async (id: string) => {
 };
 
 export const createHistoryExecutableDao = async (
-	data: HistoryExecutableModelI,
+	data: HistoryExecutableMulterModelI,
 ) => {
 	const dateCurrent = currentDate();
-	const {
-		executableId,
-		version,
-		pathExecutable,
-		userId,
-		category_app,
-		platformId,
-	} = data;
+	const { executableId, version, userId, platformId, execForm } = data;
+
+	if (!execForm) {
+		throw new NotFoundError("file not found");
+	}
+
+	const filename = execForm.filename;
+	const originalname = execForm.originalname;
 
 	const historyExecutable = await prisma.historyExecutable.create({
 		data: {
 			executableId,
 			version,
-			pathExecutable,
+			pathExecutable: filename,
 			userId,
-			category_app,
 			platformId,
 			createdAt: dateCurrent,
+			filename: originalname,
 		},
 	});
 

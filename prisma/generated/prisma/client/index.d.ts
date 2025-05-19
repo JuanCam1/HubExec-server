@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type State = $Result.DefaultSelection<Prisma.$StatePayload>
 /**
+ * Model Category
+ * 
+ */
+export type Category = $Result.DefaultSelection<Prisma.$CategoryPayload>
+/**
  * Model Platform
  * 
  */
@@ -206,6 +211,16 @@ export class PrismaClient<
     * ```
     */
   get state(): Prisma.StateDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.category`: Exposes CRUD operations for the **Category** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Categories
+    * const categories = await prisma.category.findMany()
+    * ```
+    */
+  get category(): Prisma.CategoryDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.platform`: Exposes CRUD operations for the **Platform** model.
@@ -717,6 +732,7 @@ export namespace Prisma {
 
   export const ModelName: {
     State: 'State',
+    Category: 'Category',
     Platform: 'Platform',
     Executable: 'Executable',
     HistoryExecutable: 'HistoryExecutable',
@@ -742,7 +758,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "state" | "platform" | "executable" | "historyExecutable" | "user" | "session" | "post" | "configuration"
+      modelProps: "state" | "category" | "platform" | "executable" | "historyExecutable" | "user" | "session" | "post" | "configuration"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -809,6 +825,72 @@ export namespace Prisma {
           count: {
             args: Prisma.StateCountArgs<ExtArgs>
             result: $Utils.Optional<StateCountAggregateOutputType> | number
+          }
+        }
+      }
+      Category: {
+        payload: Prisma.$CategoryPayload<ExtArgs>
+        fields: Prisma.CategoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CategoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CategoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
+          }
+          findFirst: {
+            args: Prisma.CategoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CategoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
+          }
+          findMany: {
+            args: Prisma.CategoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>[]
+          }
+          create: {
+            args: Prisma.CategoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
+          }
+          createMany: {
+            args: Prisma.CategoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.CategoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
+          }
+          update: {
+            args: Prisma.CategoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.CategoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CategoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CategoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CategoryPayload>
+          }
+          aggregate: {
+            args: Prisma.CategoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCategory>
+          }
+          groupBy: {
+            args: Prisma.CategoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CategoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CategoryCountArgs<ExtArgs>
+            result: $Utils.Optional<CategoryCountAggregateOutputType> | number
           }
         }
       }
@@ -1359,6 +1441,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     state?: StateOmit
+    category?: CategoryOmit
     platform?: PlatformOmit
     executable?: ExecutableOmit
     historyExecutable?: HistoryExecutableOmit
@@ -1492,6 +1575,37 @@ export namespace Prisma {
    */
   export type StateCountOutputTypeCountExecutableArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ExecutableWhereInput
+  }
+
+
+  /**
+   * Count Type CategoryCountOutputType
+   */
+
+  export type CategoryCountOutputType = {
+    Platform: number
+  }
+
+  export type CategoryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Platform?: boolean | CategoryCountOutputTypeCountPlatformArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CategoryCountOutputType without action
+   */
+  export type CategoryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CategoryCountOutputType
+     */
+    select?: CategoryCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CategoryCountOutputType without action
+   */
+  export type CategoryCountOutputTypeCountPlatformArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PlatformWhereInput
   }
 
 
@@ -2604,6 +2718,962 @@ export namespace Prisma {
 
 
   /**
+   * Model Category
+   */
+
+  export type AggregateCategory = {
+    _count: CategoryCountAggregateOutputType | null
+    _avg: CategoryAvgAggregateOutputType | null
+    _sum: CategorySumAggregateOutputType | null
+    _min: CategoryMinAggregateOutputType | null
+    _max: CategoryMaxAggregateOutputType | null
+  }
+
+  export type CategoryAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type CategorySumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type CategoryMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+  }
+
+  export type CategoryMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+  }
+
+  export type CategoryCountAggregateOutputType = {
+    id: number
+    name: number
+    _all: number
+  }
+
+
+  export type CategoryAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type CategorySumAggregateInputType = {
+    id?: true
+  }
+
+  export type CategoryMinAggregateInputType = {
+    id?: true
+    name?: true
+  }
+
+  export type CategoryMaxAggregateInputType = {
+    id?: true
+    name?: true
+  }
+
+  export type CategoryCountAggregateInputType = {
+    id?: true
+    name?: true
+    _all?: true
+  }
+
+  export type CategoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Category to aggregate.
+     */
+    where?: CategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Categories to fetch.
+     */
+    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Categories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Categories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Categories
+    **/
+    _count?: true | CategoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CategoryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CategorySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CategoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CategoryMaxAggregateInputType
+  }
+
+  export type GetCategoryAggregateType<T extends CategoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateCategory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCategory[P]>
+      : GetScalarType<T[P], AggregateCategory[P]>
+  }
+
+
+
+
+  export type CategoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CategoryWhereInput
+    orderBy?: CategoryOrderByWithAggregationInput | CategoryOrderByWithAggregationInput[]
+    by: CategoryScalarFieldEnum[] | CategoryScalarFieldEnum
+    having?: CategoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CategoryCountAggregateInputType | true
+    _avg?: CategoryAvgAggregateInputType
+    _sum?: CategorySumAggregateInputType
+    _min?: CategoryMinAggregateInputType
+    _max?: CategoryMaxAggregateInputType
+  }
+
+  export type CategoryGroupByOutputType = {
+    id: number
+    name: string
+    _count: CategoryCountAggregateOutputType | null
+    _avg: CategoryAvgAggregateOutputType | null
+    _sum: CategorySumAggregateOutputType | null
+    _min: CategoryMinAggregateOutputType | null
+    _max: CategoryMaxAggregateOutputType | null
+  }
+
+  type GetCategoryGroupByPayload<T extends CategoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CategoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CategoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CategoryGroupByOutputType[P]>
+            : GetScalarType<T[P], CategoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CategorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    Platform?: boolean | Category$PlatformArgs<ExtArgs>
+    _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["category"]>
+
+
+
+  export type CategorySelectScalar = {
+    id?: boolean
+    name?: boolean
+  }
+
+  export type CategoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name", ExtArgs["result"]["category"]>
+  export type CategoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Platform?: boolean | Category$PlatformArgs<ExtArgs>
+    _count?: boolean | CategoryCountOutputTypeDefaultArgs<ExtArgs>
+  }
+
+  export type $CategoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Category"
+    objects: {
+      Platform: Prisma.$PlatformPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+    }, ExtArgs["result"]["category"]>
+    composites: {}
+  }
+
+  type CategoryGetPayload<S extends boolean | null | undefined | CategoryDefaultArgs> = $Result.GetResult<Prisma.$CategoryPayload, S>
+
+  type CategoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CategoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CategoryCountAggregateInputType | true
+    }
+
+  export interface CategoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Category'], meta: { name: 'Category' } }
+    /**
+     * Find zero or one Category that matches the filter.
+     * @param {CategoryFindUniqueArgs} args - Arguments to find a Category
+     * @example
+     * // Get one Category
+     * const category = await prisma.category.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CategoryFindUniqueArgs>(args: SelectSubset<T, CategoryFindUniqueArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Category that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CategoryFindUniqueOrThrowArgs} args - Arguments to find a Category
+     * @example
+     * // Get one Category
+     * const category = await prisma.category.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CategoryFindUniqueOrThrowArgs>(args: SelectSubset<T, CategoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Category that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryFindFirstArgs} args - Arguments to find a Category
+     * @example
+     * // Get one Category
+     * const category = await prisma.category.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CategoryFindFirstArgs>(args?: SelectSubset<T, CategoryFindFirstArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Category that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryFindFirstOrThrowArgs} args - Arguments to find a Category
+     * @example
+     * // Get one Category
+     * const category = await prisma.category.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CategoryFindFirstOrThrowArgs>(args?: SelectSubset<T, CategoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Categories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Categories
+     * const categories = await prisma.category.findMany()
+     * 
+     * // Get first 10 Categories
+     * const categories = await prisma.category.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const categoryWithIdOnly = await prisma.category.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CategoryFindManyArgs>(args?: SelectSubset<T, CategoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Category.
+     * @param {CategoryCreateArgs} args - Arguments to create a Category.
+     * @example
+     * // Create one Category
+     * const Category = await prisma.category.create({
+     *   data: {
+     *     // ... data to create a Category
+     *   }
+     * })
+     * 
+     */
+    create<T extends CategoryCreateArgs>(args: SelectSubset<T, CategoryCreateArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Categories.
+     * @param {CategoryCreateManyArgs} args - Arguments to create many Categories.
+     * @example
+     * // Create many Categories
+     * const category = await prisma.category.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CategoryCreateManyArgs>(args?: SelectSubset<T, CategoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a Category.
+     * @param {CategoryDeleteArgs} args - Arguments to delete one Category.
+     * @example
+     * // Delete one Category
+     * const Category = await prisma.category.delete({
+     *   where: {
+     *     // ... filter to delete one Category
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CategoryDeleteArgs>(args: SelectSubset<T, CategoryDeleteArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Category.
+     * @param {CategoryUpdateArgs} args - Arguments to update one Category.
+     * @example
+     * // Update one Category
+     * const category = await prisma.category.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CategoryUpdateArgs>(args: SelectSubset<T, CategoryUpdateArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Categories.
+     * @param {CategoryDeleteManyArgs} args - Arguments to filter Categories to delete.
+     * @example
+     * // Delete a few Categories
+     * const { count } = await prisma.category.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CategoryDeleteManyArgs>(args?: SelectSubset<T, CategoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Categories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Categories
+     * const category = await prisma.category.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CategoryUpdateManyArgs>(args: SelectSubset<T, CategoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Category.
+     * @param {CategoryUpsertArgs} args - Arguments to update or create a Category.
+     * @example
+     * // Update or create a Category
+     * const category = await prisma.category.upsert({
+     *   create: {
+     *     // ... data to create a Category
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Category we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CategoryUpsertArgs>(args: SelectSubset<T, CategoryUpsertArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Categories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryCountArgs} args - Arguments to filter Categories to count.
+     * @example
+     * // Count the number of Categories
+     * const count = await prisma.category.count({
+     *   where: {
+     *     // ... the filter for the Categories we want to count
+     *   }
+     * })
+    **/
+    count<T extends CategoryCountArgs>(
+      args?: Subset<T, CategoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CategoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Category.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CategoryAggregateArgs>(args: Subset<T, CategoryAggregateArgs>): Prisma.PrismaPromise<GetCategoryAggregateType<T>>
+
+    /**
+     * Group by Category.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CategoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CategoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CategoryGroupByArgs['orderBy'] }
+        : { orderBy?: CategoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CategoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCategoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Category model
+   */
+  readonly fields: CategoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Category.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CategoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    Platform<T extends Category$PlatformArgs<ExtArgs> = {}>(args?: Subset<T, Category$PlatformArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlatformPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Category model
+   */
+  interface CategoryFieldRefs {
+    readonly id: FieldRef<"Category", 'Int'>
+    readonly name: FieldRef<"Category", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Category findUnique
+   */
+  export type CategoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Category to fetch.
+     */
+    where: CategoryWhereUniqueInput
+  }
+
+  /**
+   * Category findUniqueOrThrow
+   */
+  export type CategoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Category to fetch.
+     */
+    where: CategoryWhereUniqueInput
+  }
+
+  /**
+   * Category findFirst
+   */
+  export type CategoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Category to fetch.
+     */
+    where?: CategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Categories to fetch.
+     */
+    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Categories.
+     */
+    cursor?: CategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Categories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Categories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Categories.
+     */
+    distinct?: CategoryScalarFieldEnum | CategoryScalarFieldEnum[]
+  }
+
+  /**
+   * Category findFirstOrThrow
+   */
+  export type CategoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Category to fetch.
+     */
+    where?: CategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Categories to fetch.
+     */
+    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Categories.
+     */
+    cursor?: CategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Categories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Categories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Categories.
+     */
+    distinct?: CategoryScalarFieldEnum | CategoryScalarFieldEnum[]
+  }
+
+  /**
+   * Category findMany
+   */
+  export type CategoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * Filter, which Categories to fetch.
+     */
+    where?: CategoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Categories to fetch.
+     */
+    orderBy?: CategoryOrderByWithRelationInput | CategoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Categories.
+     */
+    cursor?: CategoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Categories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Categories.
+     */
+    skip?: number
+    distinct?: CategoryScalarFieldEnum | CategoryScalarFieldEnum[]
+  }
+
+  /**
+   * Category create
+   */
+  export type CategoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Category.
+     */
+    data: XOR<CategoryCreateInput, CategoryUncheckedCreateInput>
+  }
+
+  /**
+   * Category createMany
+   */
+  export type CategoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Categories.
+     */
+    data: CategoryCreateManyInput | CategoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Category update
+   */
+  export type CategoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Category.
+     */
+    data: XOR<CategoryUpdateInput, CategoryUncheckedUpdateInput>
+    /**
+     * Choose, which Category to update.
+     */
+    where: CategoryWhereUniqueInput
+  }
+
+  /**
+   * Category updateMany
+   */
+  export type CategoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Categories.
+     */
+    data: XOR<CategoryUpdateManyMutationInput, CategoryUncheckedUpdateManyInput>
+    /**
+     * Filter which Categories to update
+     */
+    where?: CategoryWhereInput
+    /**
+     * Limit how many Categories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Category upsert
+   */
+  export type CategoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Category to update in case it exists.
+     */
+    where: CategoryWhereUniqueInput
+    /**
+     * In case the Category found by the `where` argument doesn't exist, create a new Category with this data.
+     */
+    create: XOR<CategoryCreateInput, CategoryUncheckedCreateInput>
+    /**
+     * In case the Category was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CategoryUpdateInput, CategoryUncheckedUpdateInput>
+  }
+
+  /**
+   * Category delete
+   */
+  export type CategoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+    /**
+     * Filter which Category to delete.
+     */
+    where: CategoryWhereUniqueInput
+  }
+
+  /**
+   * Category deleteMany
+   */
+  export type CategoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Categories to delete
+     */
+    where?: CategoryWhereInput
+    /**
+     * Limit how many Categories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Category.Platform
+   */
+  export type Category$PlatformArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Platform
+     */
+    select?: PlatformSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Platform
+     */
+    omit?: PlatformOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PlatformInclude<ExtArgs> | null
+    where?: PlatformWhereInput
+    orderBy?: PlatformOrderByWithRelationInput | PlatformOrderByWithRelationInput[]
+    cursor?: PlatformWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PlatformScalarFieldEnum | PlatformScalarFieldEnum[]
+  }
+
+  /**
+   * Category without action
+   */
+  export type CategoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Category
+     */
+    select?: CategorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Category
+     */
+    omit?: CategoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Platform
    */
 
@@ -2617,50 +3687,60 @@ export namespace Prisma {
 
   export type PlatformAvgAggregateOutputType = {
     id: number | null
+    categoryId: number | null
   }
 
   export type PlatformSumAggregateOutputType = {
     id: number | null
+    categoryId: number | null
   }
 
   export type PlatformMinAggregateOutputType = {
     id: number | null
     name: string | null
+    categoryId: number | null
   }
 
   export type PlatformMaxAggregateOutputType = {
     id: number | null
     name: string | null
+    categoryId: number | null
   }
 
   export type PlatformCountAggregateOutputType = {
     id: number
     name: number
+    categoryId: number
     _all: number
   }
 
 
   export type PlatformAvgAggregateInputType = {
     id?: true
+    categoryId?: true
   }
 
   export type PlatformSumAggregateInputType = {
     id?: true
+    categoryId?: true
   }
 
   export type PlatformMinAggregateInputType = {
     id?: true
     name?: true
+    categoryId?: true
   }
 
   export type PlatformMaxAggregateInputType = {
     id?: true
     name?: true
+    categoryId?: true
   }
 
   export type PlatformCountAggregateInputType = {
     id?: true
     name?: true
+    categoryId?: true
     _all?: true
   }
 
@@ -2753,6 +3833,7 @@ export namespace Prisma {
   export type PlatformGroupByOutputType = {
     id: number
     name: string
+    categoryId: number
     _count: PlatformCountAggregateOutputType | null
     _avg: PlatformAvgAggregateOutputType | null
     _sum: PlatformSumAggregateOutputType | null
@@ -2777,7 +3858,9 @@ export namespace Prisma {
   export type PlatformSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    categoryId?: boolean
     historyExecutable?: boolean | Platform$historyExecutableArgs<ExtArgs>
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
     _count?: boolean | PlatformCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["platform"]>
 
@@ -2786,11 +3869,13 @@ export namespace Prisma {
   export type PlatformSelectScalar = {
     id?: boolean
     name?: boolean
+    categoryId?: boolean
   }
 
-  export type PlatformOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name", ExtArgs["result"]["platform"]>
+  export type PlatformOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "categoryId", ExtArgs["result"]["platform"]>
   export type PlatformInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     historyExecutable?: boolean | Platform$historyExecutableArgs<ExtArgs>
+    category?: boolean | CategoryDefaultArgs<ExtArgs>
     _count?: boolean | PlatformCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -2798,10 +3883,12 @@ export namespace Prisma {
     name: "Platform"
     objects: {
       historyExecutable: Prisma.$HistoryExecutablePayload<ExtArgs>[]
+      category: Prisma.$CategoryPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
+      categoryId: number
     }, ExtArgs["result"]["platform"]>
     composites: {}
   }
@@ -3143,6 +4230,7 @@ export namespace Prisma {
   export interface Prisma__PlatformClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     historyExecutable<T extends Platform$historyExecutableArgs<ExtArgs> = {}>(args?: Subset<T, Platform$historyExecutableArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HistoryExecutablePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    category<T extends CategoryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoryDefaultArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3174,6 +4262,7 @@ export namespace Prisma {
   interface PlatformFieldRefs {
     readonly id: FieldRef<"Platform", 'Int'>
     readonly name: FieldRef<"Platform", 'String'>
+    readonly categoryId: FieldRef<"Platform", 'Int'>
   }
     
 
@@ -4606,10 +5695,10 @@ export namespace Prisma {
     id: string | null
     executableId: string | null
     pathExecutable: string | null
+    filename: string | null
     version: string | null
     createdAt: Date | null
     userId: number | null
-    category_app: string | null
     platformId: number | null
   }
 
@@ -4617,10 +5706,10 @@ export namespace Prisma {
     id: string | null
     executableId: string | null
     pathExecutable: string | null
+    filename: string | null
     version: string | null
     createdAt: Date | null
     userId: number | null
-    category_app: string | null
     platformId: number | null
   }
 
@@ -4628,10 +5717,10 @@ export namespace Prisma {
     id: number
     executableId: number
     pathExecutable: number
+    filename: number
     version: number
     createdAt: number
     userId: number
-    category_app: number
     platformId: number
     _all: number
   }
@@ -4651,10 +5740,10 @@ export namespace Prisma {
     id?: true
     executableId?: true
     pathExecutable?: true
+    filename?: true
     version?: true
     createdAt?: true
     userId?: true
-    category_app?: true
     platformId?: true
   }
 
@@ -4662,10 +5751,10 @@ export namespace Prisma {
     id?: true
     executableId?: true
     pathExecutable?: true
+    filename?: true
     version?: true
     createdAt?: true
     userId?: true
-    category_app?: true
     platformId?: true
   }
 
@@ -4673,10 +5762,10 @@ export namespace Prisma {
     id?: true
     executableId?: true
     pathExecutable?: true
+    filename?: true
     version?: true
     createdAt?: true
     userId?: true
-    category_app?: true
     platformId?: true
     _all?: true
   }
@@ -4771,10 +5860,10 @@ export namespace Prisma {
     id: string
     executableId: string
     pathExecutable: string
+    filename: string
     version: string
     createdAt: Date
     userId: number
-    category_app: string
     platformId: number
     _count: HistoryExecutableCountAggregateOutputType | null
     _avg: HistoryExecutableAvgAggregateOutputType | null
@@ -4801,10 +5890,10 @@ export namespace Prisma {
     id?: boolean
     executableId?: boolean
     pathExecutable?: boolean
+    filename?: boolean
     version?: boolean
     createdAt?: boolean
     userId?: boolean
-    category_app?: boolean
     platformId?: boolean
     executable?: boolean | ExecutableDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4817,14 +5906,14 @@ export namespace Prisma {
     id?: boolean
     executableId?: boolean
     pathExecutable?: boolean
+    filename?: boolean
     version?: boolean
     createdAt?: boolean
     userId?: boolean
-    category_app?: boolean
     platformId?: boolean
   }
 
-  export type HistoryExecutableOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "executableId" | "pathExecutable" | "version" | "createdAt" | "userId" | "category_app" | "platformId", ExtArgs["result"]["historyExecutable"]>
+  export type HistoryExecutableOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "executableId" | "pathExecutable" | "filename" | "version" | "createdAt" | "userId" | "platformId", ExtArgs["result"]["historyExecutable"]>
   export type HistoryExecutableInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     executable?: boolean | ExecutableDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4842,10 +5931,10 @@ export namespace Prisma {
       id: string
       executableId: string
       pathExecutable: string
+      filename: string
       version: string
       createdAt: Date
       userId: number
-      category_app: string
       platformId: number
     }, ExtArgs["result"]["historyExecutable"]>
     composites: {}
@@ -5222,10 +6311,10 @@ export namespace Prisma {
     readonly id: FieldRef<"HistoryExecutable", 'String'>
     readonly executableId: FieldRef<"HistoryExecutable", 'String'>
     readonly pathExecutable: FieldRef<"HistoryExecutable", 'String'>
+    readonly filename: FieldRef<"HistoryExecutable", 'String'>
     readonly version: FieldRef<"HistoryExecutable", 'String'>
     readonly createdAt: FieldRef<"HistoryExecutable", 'DateTime'>
     readonly userId: FieldRef<"HistoryExecutable", 'Int'>
-    readonly category_app: FieldRef<"HistoryExecutable", 'String'>
     readonly platformId: FieldRef<"HistoryExecutable", 'Int'>
   }
     
@@ -9524,9 +10613,18 @@ export namespace Prisma {
   export type StateScalarFieldEnum = (typeof StateScalarFieldEnum)[keyof typeof StateScalarFieldEnum]
 
 
-  export const PlatformScalarFieldEnum: {
+  export const CategoryScalarFieldEnum: {
     id: 'id',
     name: 'name'
+  };
+
+  export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
+
+
+  export const PlatformScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    categoryId: 'categoryId'
   };
 
   export type PlatformScalarFieldEnum = (typeof PlatformScalarFieldEnum)[keyof typeof PlatformScalarFieldEnum]
@@ -9547,10 +10645,10 @@ export namespace Prisma {
     id: 'id',
     executableId: 'executableId',
     pathExecutable: 'pathExecutable',
+    filename: 'filename',
     version: 'version',
     createdAt: 'createdAt',
     userId: 'userId',
-    category_app: 'category_app',
     platformId: 'platformId'
   };
 
@@ -9617,6 +10715,13 @@ export namespace Prisma {
   export type StateOrderByRelevanceFieldEnum = (typeof StateOrderByRelevanceFieldEnum)[keyof typeof StateOrderByRelevanceFieldEnum]
 
 
+  export const CategoryOrderByRelevanceFieldEnum: {
+    name: 'name'
+  };
+
+  export type CategoryOrderByRelevanceFieldEnum = (typeof CategoryOrderByRelevanceFieldEnum)[keyof typeof CategoryOrderByRelevanceFieldEnum]
+
+
   export const PlatformOrderByRelevanceFieldEnum: {
     name: 'name'
   };
@@ -9638,8 +10743,8 @@ export namespace Prisma {
     id: 'id',
     executableId: 'executableId',
     pathExecutable: 'pathExecutable',
-    version: 'version',
-    category_app: 'category_app'
+    filename: 'filename',
+    version: 'version'
   };
 
   export type HistoryExecutableOrderByRelevanceFieldEnum = (typeof HistoryExecutableOrderByRelevanceFieldEnum)[keyof typeof HistoryExecutableOrderByRelevanceFieldEnum]
@@ -9772,19 +10877,66 @@ export namespace Prisma {
     state?: StringWithAggregatesFilter<"State"> | string
   }
 
+  export type CategoryWhereInput = {
+    AND?: CategoryWhereInput | CategoryWhereInput[]
+    OR?: CategoryWhereInput[]
+    NOT?: CategoryWhereInput | CategoryWhereInput[]
+    id?: IntFilter<"Category"> | number
+    name?: StringFilter<"Category"> | string
+    Platform?: PlatformListRelationFilter
+  }
+
+  export type CategoryOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    Platform?: PlatformOrderByRelationAggregateInput
+    _relevance?: CategoryOrderByRelevanceInput
+  }
+
+  export type CategoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    name?: string
+    AND?: CategoryWhereInput | CategoryWhereInput[]
+    OR?: CategoryWhereInput[]
+    NOT?: CategoryWhereInput | CategoryWhereInput[]
+    Platform?: PlatformListRelationFilter
+  }, "id" | "name">
+
+  export type CategoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    _count?: CategoryCountOrderByAggregateInput
+    _avg?: CategoryAvgOrderByAggregateInput
+    _max?: CategoryMaxOrderByAggregateInput
+    _min?: CategoryMinOrderByAggregateInput
+    _sum?: CategorySumOrderByAggregateInput
+  }
+
+  export type CategoryScalarWhereWithAggregatesInput = {
+    AND?: CategoryScalarWhereWithAggregatesInput | CategoryScalarWhereWithAggregatesInput[]
+    OR?: CategoryScalarWhereWithAggregatesInput[]
+    NOT?: CategoryScalarWhereWithAggregatesInput | CategoryScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Category"> | number
+    name?: StringWithAggregatesFilter<"Category"> | string
+  }
+
   export type PlatformWhereInput = {
     AND?: PlatformWhereInput | PlatformWhereInput[]
     OR?: PlatformWhereInput[]
     NOT?: PlatformWhereInput | PlatformWhereInput[]
     id?: IntFilter<"Platform"> | number
     name?: StringFilter<"Platform"> | string
+    categoryId?: IntFilter<"Platform"> | number
     historyExecutable?: HistoryExecutableListRelationFilter
+    category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
   }
 
   export type PlatformOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    categoryId?: SortOrder
     historyExecutable?: HistoryExecutableOrderByRelationAggregateInput
+    category?: CategoryOrderByWithRelationInput
     _relevance?: PlatformOrderByRelevanceInput
   }
 
@@ -9794,12 +10946,15 @@ export namespace Prisma {
     OR?: PlatformWhereInput[]
     NOT?: PlatformWhereInput | PlatformWhereInput[]
     name?: StringFilter<"Platform"> | string
+    categoryId?: IntFilter<"Platform"> | number
     historyExecutable?: HistoryExecutableListRelationFilter
+    category?: XOR<CategoryScalarRelationFilter, CategoryWhereInput>
   }, "id">
 
   export type PlatformOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    categoryId?: SortOrder
     _count?: PlatformCountOrderByAggregateInput
     _avg?: PlatformAvgOrderByAggregateInput
     _max?: PlatformMaxOrderByAggregateInput
@@ -9813,6 +10968,7 @@ export namespace Prisma {
     NOT?: PlatformScalarWhereWithAggregatesInput | PlatformScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Platform"> | number
     name?: StringWithAggregatesFilter<"Platform"> | string
+    categoryId?: IntWithAggregatesFilter<"Platform"> | number
   }
 
   export type ExecutableWhereInput = {
@@ -9886,10 +11042,10 @@ export namespace Prisma {
     id?: StringFilter<"HistoryExecutable"> | string
     executableId?: StringFilter<"HistoryExecutable"> | string
     pathExecutable?: StringFilter<"HistoryExecutable"> | string
+    filename?: StringFilter<"HistoryExecutable"> | string
     version?: StringFilter<"HistoryExecutable"> | string
     createdAt?: DateTimeFilter<"HistoryExecutable"> | Date | string
     userId?: IntFilter<"HistoryExecutable"> | number
-    category_app?: StringFilter<"HistoryExecutable"> | string
     platformId?: IntFilter<"HistoryExecutable"> | number
     executable?: XOR<ExecutableScalarRelationFilter, ExecutableWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -9900,10 +11056,10 @@ export namespace Prisma {
     id?: SortOrder
     executableId?: SortOrder
     pathExecutable?: SortOrder
+    filename?: SortOrder
     version?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
-    category_app?: SortOrder
     platformId?: SortOrder
     executable?: ExecutableOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
@@ -9919,9 +11075,9 @@ export namespace Prisma {
     NOT?: HistoryExecutableWhereInput | HistoryExecutableWhereInput[]
     executableId?: StringFilter<"HistoryExecutable"> | string
     pathExecutable?: StringFilter<"HistoryExecutable"> | string
+    filename?: StringFilter<"HistoryExecutable"> | string
     createdAt?: DateTimeFilter<"HistoryExecutable"> | Date | string
     userId?: IntFilter<"HistoryExecutable"> | number
-    category_app?: StringFilter<"HistoryExecutable"> | string
     platformId?: IntFilter<"HistoryExecutable"> | number
     executable?: XOR<ExecutableScalarRelationFilter, ExecutableWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -9932,10 +11088,10 @@ export namespace Prisma {
     id?: SortOrder
     executableId?: SortOrder
     pathExecutable?: SortOrder
+    filename?: SortOrder
     version?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
-    category_app?: SortOrder
     platformId?: SortOrder
     _count?: HistoryExecutableCountOrderByAggregateInput
     _avg?: HistoryExecutableAvgOrderByAggregateInput
@@ -9951,10 +11107,10 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"HistoryExecutable"> | string
     executableId?: StringWithAggregatesFilter<"HistoryExecutable"> | string
     pathExecutable?: StringWithAggregatesFilter<"HistoryExecutable"> | string
+    filename?: StringWithAggregatesFilter<"HistoryExecutable"> | string
     version?: StringWithAggregatesFilter<"HistoryExecutable"> | string
     createdAt?: DateTimeWithAggregatesFilter<"HistoryExecutable"> | Date | string
     userId?: IntWithAggregatesFilter<"HistoryExecutable"> | number
-    category_app?: StringWithAggregatesFilter<"HistoryExecutable"> | string
     platformId?: IntWithAggregatesFilter<"HistoryExecutable"> | number
   }
 
@@ -10243,31 +11399,72 @@ export namespace Prisma {
     state?: StringFieldUpdateOperationsInput | string
   }
 
+  export type CategoryCreateInput = {
+    name: string
+    Platform?: PlatformCreateNestedManyWithoutCategoryInput
+  }
+
+  export type CategoryUncheckedCreateInput = {
+    id?: number
+    name: string
+    Platform?: PlatformUncheckedCreateNestedManyWithoutCategoryInput
+  }
+
+  export type CategoryUpdateInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    Platform?: PlatformUpdateManyWithoutCategoryNestedInput
+  }
+
+  export type CategoryUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    Platform?: PlatformUncheckedUpdateManyWithoutCategoryNestedInput
+  }
+
+  export type CategoryCreateManyInput = {
+    id?: number
+    name: string
+  }
+
+  export type CategoryUpdateManyMutationInput = {
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CategoryUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
   export type PlatformCreateInput = {
     name: string
     historyExecutable?: HistoryExecutableCreateNestedManyWithoutPlatformInput
+    category: CategoryCreateNestedOneWithoutPlatformInput
   }
 
   export type PlatformUncheckedCreateInput = {
     id?: number
     name: string
+    categoryId: number
     historyExecutable?: HistoryExecutableUncheckedCreateNestedManyWithoutPlatformInput
   }
 
   export type PlatformUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     historyExecutable?: HistoryExecutableUpdateManyWithoutPlatformNestedInput
+    category?: CategoryUpdateOneRequiredWithoutPlatformNestedInput
   }
 
   export type PlatformUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    categoryId?: IntFieldUpdateOperationsInput | number
     historyExecutable?: HistoryExecutableUncheckedUpdateManyWithoutPlatformNestedInput
   }
 
   export type PlatformCreateManyInput = {
     id?: number
     name: string
+    categoryId: number
   }
 
   export type PlatformUpdateManyMutationInput = {
@@ -10277,6 +11474,7 @@ export namespace Prisma {
   export type PlatformUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    categoryId?: IntFieldUpdateOperationsInput | number
   }
 
   export type ExecutableCreateInput = {
@@ -10345,9 +11543,9 @@ export namespace Prisma {
   export type HistoryExecutableCreateInput = {
     id?: string
     pathExecutable: string
+    filename: string
     version: string
     createdAt: Date | string
-    category_app: string
     executable: ExecutableCreateNestedOneWithoutHistoryInput
     user: UserCreateNestedOneWithoutHistoryInput
     platform: PlatformCreateNestedOneWithoutHistoryExecutableInput
@@ -10357,19 +11555,19 @@ export namespace Prisma {
     id?: string
     executableId: string
     pathExecutable: string
+    filename: string
     version: string
     createdAt: Date | string
     userId: number
-    category_app: string
     platformId: number
   }
 
   export type HistoryExecutableUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     pathExecutable?: StringFieldUpdateOperationsInput | string
+    filename?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category_app?: StringFieldUpdateOperationsInput | string
     executable?: ExecutableUpdateOneRequiredWithoutHistoryNestedInput
     user?: UserUpdateOneRequiredWithoutHistoryNestedInput
     platform?: PlatformUpdateOneRequiredWithoutHistoryExecutableNestedInput
@@ -10379,10 +11577,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     executableId?: StringFieldUpdateOperationsInput | string
     pathExecutable?: StringFieldUpdateOperationsInput | string
+    filename?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: IntFieldUpdateOperationsInput | number
-    category_app?: StringFieldUpdateOperationsInput | string
     platformId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -10390,29 +11588,29 @@ export namespace Prisma {
     id?: string
     executableId: string
     pathExecutable: string
+    filename: string
     version: string
     createdAt: Date | string
     userId: number
-    category_app: string
     platformId: number
   }
 
   export type HistoryExecutableUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     pathExecutable?: StringFieldUpdateOperationsInput | string
+    filename?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category_app?: StringFieldUpdateOperationsInput | string
   }
 
   export type HistoryExecutableUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     executableId?: StringFieldUpdateOperationsInput | string
     pathExecutable?: StringFieldUpdateOperationsInput | string
+    filename?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: IntFieldUpdateOperationsInput | number
-    category_app?: StringFieldUpdateOperationsInput | string
     platformId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -10755,10 +11953,54 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type PlatformListRelationFilter = {
+    every?: PlatformWhereInput
+    some?: PlatformWhereInput
+    none?: PlatformWhereInput
+  }
+
+  export type PlatformOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CategoryOrderByRelevanceInput = {
+    fields: CategoryOrderByRelevanceFieldEnum | CategoryOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type CategoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type CategoryAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type CategoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type CategoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+  }
+
+  export type CategorySumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
   export type HistoryExecutableListRelationFilter = {
     every?: HistoryExecutableWhereInput
     some?: HistoryExecutableWhereInput
     none?: HistoryExecutableWhereInput
+  }
+
+  export type CategoryScalarRelationFilter = {
+    is?: CategoryWhereInput
+    isNot?: CategoryWhereInput
   }
 
   export type HistoryExecutableOrderByRelationAggregateInput = {
@@ -10774,24 +12016,29 @@ export namespace Prisma {
   export type PlatformCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    categoryId?: SortOrder
   }
 
   export type PlatformAvgOrderByAggregateInput = {
     id?: SortOrder
+    categoryId?: SortOrder
   }
 
   export type PlatformMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    categoryId?: SortOrder
   }
 
   export type PlatformMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    categoryId?: SortOrder
   }
 
   export type PlatformSumOrderByAggregateInput = {
     id?: SortOrder
+    categoryId?: SortOrder
   }
 
   export type StateScalarRelationFilter = {
@@ -10883,10 +12130,10 @@ export namespace Prisma {
     id?: SortOrder
     executableId?: SortOrder
     pathExecutable?: SortOrder
+    filename?: SortOrder
     version?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
-    category_app?: SortOrder
     platformId?: SortOrder
   }
 
@@ -10899,10 +12146,10 @@ export namespace Prisma {
     id?: SortOrder
     executableId?: SortOrder
     pathExecutable?: SortOrder
+    filename?: SortOrder
     version?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
-    category_app?: SortOrder
     platformId?: SortOrder
   }
 
@@ -10910,10 +12157,10 @@ export namespace Prisma {
     id?: SortOrder
     executableId?: SortOrder
     pathExecutable?: SortOrder
+    filename?: SortOrder
     version?: SortOrder
     createdAt?: SortOrder
     userId?: SortOrder
-    category_app?: SortOrder
     platformId?: SortOrder
   }
 
@@ -11275,11 +12522,59 @@ export namespace Prisma {
     deleteMany?: ExecutableScalarWhereInput | ExecutableScalarWhereInput[]
   }
 
+  export type PlatformCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<PlatformCreateWithoutCategoryInput, PlatformUncheckedCreateWithoutCategoryInput> | PlatformCreateWithoutCategoryInput[] | PlatformUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: PlatformCreateOrConnectWithoutCategoryInput | PlatformCreateOrConnectWithoutCategoryInput[]
+    createMany?: PlatformCreateManyCategoryInputEnvelope
+    connect?: PlatformWhereUniqueInput | PlatformWhereUniqueInput[]
+  }
+
+  export type PlatformUncheckedCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<PlatformCreateWithoutCategoryInput, PlatformUncheckedCreateWithoutCategoryInput> | PlatformCreateWithoutCategoryInput[] | PlatformUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: PlatformCreateOrConnectWithoutCategoryInput | PlatformCreateOrConnectWithoutCategoryInput[]
+    createMany?: PlatformCreateManyCategoryInputEnvelope
+    connect?: PlatformWhereUniqueInput | PlatformWhereUniqueInput[]
+  }
+
+  export type PlatformUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<PlatformCreateWithoutCategoryInput, PlatformUncheckedCreateWithoutCategoryInput> | PlatformCreateWithoutCategoryInput[] | PlatformUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: PlatformCreateOrConnectWithoutCategoryInput | PlatformCreateOrConnectWithoutCategoryInput[]
+    upsert?: PlatformUpsertWithWhereUniqueWithoutCategoryInput | PlatformUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: PlatformCreateManyCategoryInputEnvelope
+    set?: PlatformWhereUniqueInput | PlatformWhereUniqueInput[]
+    disconnect?: PlatformWhereUniqueInput | PlatformWhereUniqueInput[]
+    delete?: PlatformWhereUniqueInput | PlatformWhereUniqueInput[]
+    connect?: PlatformWhereUniqueInput | PlatformWhereUniqueInput[]
+    update?: PlatformUpdateWithWhereUniqueWithoutCategoryInput | PlatformUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: PlatformUpdateManyWithWhereWithoutCategoryInput | PlatformUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: PlatformScalarWhereInput | PlatformScalarWhereInput[]
+  }
+
+  export type PlatformUncheckedUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<PlatformCreateWithoutCategoryInput, PlatformUncheckedCreateWithoutCategoryInput> | PlatformCreateWithoutCategoryInput[] | PlatformUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: PlatformCreateOrConnectWithoutCategoryInput | PlatformCreateOrConnectWithoutCategoryInput[]
+    upsert?: PlatformUpsertWithWhereUniqueWithoutCategoryInput | PlatformUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: PlatformCreateManyCategoryInputEnvelope
+    set?: PlatformWhereUniqueInput | PlatformWhereUniqueInput[]
+    disconnect?: PlatformWhereUniqueInput | PlatformWhereUniqueInput[]
+    delete?: PlatformWhereUniqueInput | PlatformWhereUniqueInput[]
+    connect?: PlatformWhereUniqueInput | PlatformWhereUniqueInput[]
+    update?: PlatformUpdateWithWhereUniqueWithoutCategoryInput | PlatformUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: PlatformUpdateManyWithWhereWithoutCategoryInput | PlatformUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: PlatformScalarWhereInput | PlatformScalarWhereInput[]
+  }
+
   export type HistoryExecutableCreateNestedManyWithoutPlatformInput = {
     create?: XOR<HistoryExecutableCreateWithoutPlatformInput, HistoryExecutableUncheckedCreateWithoutPlatformInput> | HistoryExecutableCreateWithoutPlatformInput[] | HistoryExecutableUncheckedCreateWithoutPlatformInput[]
     connectOrCreate?: HistoryExecutableCreateOrConnectWithoutPlatformInput | HistoryExecutableCreateOrConnectWithoutPlatformInput[]
     createMany?: HistoryExecutableCreateManyPlatformInputEnvelope
     connect?: HistoryExecutableWhereUniqueInput | HistoryExecutableWhereUniqueInput[]
+  }
+
+  export type CategoryCreateNestedOneWithoutPlatformInput = {
+    create?: XOR<CategoryCreateWithoutPlatformInput, CategoryUncheckedCreateWithoutPlatformInput>
+    connectOrCreate?: CategoryCreateOrConnectWithoutPlatformInput
+    connect?: CategoryWhereUniqueInput
   }
 
   export type HistoryExecutableUncheckedCreateNestedManyWithoutPlatformInput = {
@@ -11301,6 +12596,14 @@ export namespace Prisma {
     update?: HistoryExecutableUpdateWithWhereUniqueWithoutPlatformInput | HistoryExecutableUpdateWithWhereUniqueWithoutPlatformInput[]
     updateMany?: HistoryExecutableUpdateManyWithWhereWithoutPlatformInput | HistoryExecutableUpdateManyWithWhereWithoutPlatformInput[]
     deleteMany?: HistoryExecutableScalarWhereInput | HistoryExecutableScalarWhereInput[]
+  }
+
+  export type CategoryUpdateOneRequiredWithoutPlatformNestedInput = {
+    create?: XOR<CategoryCreateWithoutPlatformInput, CategoryUncheckedCreateWithoutPlatformInput>
+    connectOrCreate?: CategoryCreateOrConnectWithoutPlatformInput
+    upsert?: CategoryUpsertWithoutPlatformInput
+    connect?: CategoryWhereUniqueInput
+    update?: XOR<XOR<CategoryUpdateToOneWithWhereWithoutPlatformInput, CategoryUpdateWithoutPlatformInput>, CategoryUncheckedUpdateWithoutPlatformInput>
   }
 
   export type HistoryExecutableUncheckedUpdateManyWithoutPlatformNestedInput = {
@@ -11957,12 +13260,58 @@ export namespace Prisma {
     stateId?: IntFilter<"Executable"> | number
   }
 
+  export type PlatformCreateWithoutCategoryInput = {
+    name: string
+    historyExecutable?: HistoryExecutableCreateNestedManyWithoutPlatformInput
+  }
+
+  export type PlatformUncheckedCreateWithoutCategoryInput = {
+    id?: number
+    name: string
+    historyExecutable?: HistoryExecutableUncheckedCreateNestedManyWithoutPlatformInput
+  }
+
+  export type PlatformCreateOrConnectWithoutCategoryInput = {
+    where: PlatformWhereUniqueInput
+    create: XOR<PlatformCreateWithoutCategoryInput, PlatformUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type PlatformCreateManyCategoryInputEnvelope = {
+    data: PlatformCreateManyCategoryInput | PlatformCreateManyCategoryInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PlatformUpsertWithWhereUniqueWithoutCategoryInput = {
+    where: PlatformWhereUniqueInput
+    update: XOR<PlatformUpdateWithoutCategoryInput, PlatformUncheckedUpdateWithoutCategoryInput>
+    create: XOR<PlatformCreateWithoutCategoryInput, PlatformUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type PlatformUpdateWithWhereUniqueWithoutCategoryInput = {
+    where: PlatformWhereUniqueInput
+    data: XOR<PlatformUpdateWithoutCategoryInput, PlatformUncheckedUpdateWithoutCategoryInput>
+  }
+
+  export type PlatformUpdateManyWithWhereWithoutCategoryInput = {
+    where: PlatformScalarWhereInput
+    data: XOR<PlatformUpdateManyMutationInput, PlatformUncheckedUpdateManyWithoutCategoryInput>
+  }
+
+  export type PlatformScalarWhereInput = {
+    AND?: PlatformScalarWhereInput | PlatformScalarWhereInput[]
+    OR?: PlatformScalarWhereInput[]
+    NOT?: PlatformScalarWhereInput | PlatformScalarWhereInput[]
+    id?: IntFilter<"Platform"> | number
+    name?: StringFilter<"Platform"> | string
+    categoryId?: IntFilter<"Platform"> | number
+  }
+
   export type HistoryExecutableCreateWithoutPlatformInput = {
     id?: string
     pathExecutable: string
+    filename: string
     version: string
     createdAt: Date | string
-    category_app: string
     executable: ExecutableCreateNestedOneWithoutHistoryInput
     user: UserCreateNestedOneWithoutHistoryInput
   }
@@ -11971,10 +13320,10 @@ export namespace Prisma {
     id?: string
     executableId: string
     pathExecutable: string
+    filename: string
     version: string
     createdAt: Date | string
     userId: number
-    category_app: string
   }
 
   export type HistoryExecutableCreateOrConnectWithoutPlatformInput = {
@@ -11985,6 +13334,20 @@ export namespace Prisma {
   export type HistoryExecutableCreateManyPlatformInputEnvelope = {
     data: HistoryExecutableCreateManyPlatformInput | HistoryExecutableCreateManyPlatformInput[]
     skipDuplicates?: boolean
+  }
+
+  export type CategoryCreateWithoutPlatformInput = {
+    name: string
+  }
+
+  export type CategoryUncheckedCreateWithoutPlatformInput = {
+    id?: number
+    name: string
+  }
+
+  export type CategoryCreateOrConnectWithoutPlatformInput = {
+    where: CategoryWhereUniqueInput
+    create: XOR<CategoryCreateWithoutPlatformInput, CategoryUncheckedCreateWithoutPlatformInput>
   }
 
   export type HistoryExecutableUpsertWithWhereUniqueWithoutPlatformInput = {
@@ -12010,11 +13373,31 @@ export namespace Prisma {
     id?: StringFilter<"HistoryExecutable"> | string
     executableId?: StringFilter<"HistoryExecutable"> | string
     pathExecutable?: StringFilter<"HistoryExecutable"> | string
+    filename?: StringFilter<"HistoryExecutable"> | string
     version?: StringFilter<"HistoryExecutable"> | string
     createdAt?: DateTimeFilter<"HistoryExecutable"> | Date | string
     userId?: IntFilter<"HistoryExecutable"> | number
-    category_app?: StringFilter<"HistoryExecutable"> | string
     platformId?: IntFilter<"HistoryExecutable"> | number
+  }
+
+  export type CategoryUpsertWithoutPlatformInput = {
+    update: XOR<CategoryUpdateWithoutPlatformInput, CategoryUncheckedUpdateWithoutPlatformInput>
+    create: XOR<CategoryCreateWithoutPlatformInput, CategoryUncheckedCreateWithoutPlatformInput>
+    where?: CategoryWhereInput
+  }
+
+  export type CategoryUpdateToOneWithWhereWithoutPlatformInput = {
+    where?: CategoryWhereInput
+    data: XOR<CategoryUpdateWithoutPlatformInput, CategoryUncheckedUpdateWithoutPlatformInput>
+  }
+
+  export type CategoryUpdateWithoutPlatformInput = {
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CategoryUncheckedUpdateWithoutPlatformInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type StateCreateWithoutExecutableInput = {
@@ -12059,9 +13442,9 @@ export namespace Prisma {
   export type HistoryExecutableCreateWithoutExecutableInput = {
     id?: string
     pathExecutable: string
+    filename: string
     version: string
     createdAt: Date | string
-    category_app: string
     user: UserCreateNestedOneWithoutHistoryInput
     platform: PlatformCreateNestedOneWithoutHistoryExecutableInput
   }
@@ -12069,10 +13452,10 @@ export namespace Prisma {
   export type HistoryExecutableUncheckedCreateWithoutExecutableInput = {
     id?: string
     pathExecutable: string
+    filename: string
     version: string
     createdAt: Date | string
     userId: number
-    category_app: string
     platformId: number
   }
 
@@ -12206,11 +13589,13 @@ export namespace Prisma {
 
   export type PlatformCreateWithoutHistoryExecutableInput = {
     name: string
+    category: CategoryCreateNestedOneWithoutPlatformInput
   }
 
   export type PlatformUncheckedCreateWithoutHistoryExecutableInput = {
     id?: number
     name: string
+    categoryId: number
   }
 
   export type PlatformCreateOrConnectWithoutHistoryExecutableInput = {
@@ -12296,11 +13681,13 @@ export namespace Prisma {
 
   export type PlatformUpdateWithoutHistoryExecutableInput = {
     name?: StringFieldUpdateOperationsInput | string
+    category?: CategoryUpdateOneRequiredWithoutPlatformNestedInput
   }
 
   export type PlatformUncheckedUpdateWithoutHistoryExecutableInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    categoryId?: IntFieldUpdateOperationsInput | number
   }
 
   export type SessionCreateWithoutUserInput = {
@@ -12371,9 +13758,9 @@ export namespace Prisma {
   export type HistoryExecutableCreateWithoutUserInput = {
     id?: string
     pathExecutable: string
+    filename: string
     version: string
     createdAt: Date | string
-    category_app: string
     executable: ExecutableCreateNestedOneWithoutHistoryInput
     platform: PlatformCreateNestedOneWithoutHistoryExecutableInput
   }
@@ -12382,9 +13769,9 @@ export namespace Prisma {
     id?: string
     executableId: string
     pathExecutable: string
+    filename: string
     version: string
     createdAt: Date | string
-    category_app: string
     platformId: number
   }
 
@@ -12741,22 +14128,43 @@ export namespace Prisma {
     type_app?: StringFieldUpdateOperationsInput | string
   }
 
+  export type PlatformCreateManyCategoryInput = {
+    id?: number
+    name: string
+  }
+
+  export type PlatformUpdateWithoutCategoryInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    historyExecutable?: HistoryExecutableUpdateManyWithoutPlatformNestedInput
+  }
+
+  export type PlatformUncheckedUpdateWithoutCategoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    historyExecutable?: HistoryExecutableUncheckedUpdateManyWithoutPlatformNestedInput
+  }
+
+  export type PlatformUncheckedUpdateManyWithoutCategoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
   export type HistoryExecutableCreateManyPlatformInput = {
     id?: string
     executableId: string
     pathExecutable: string
+    filename: string
     version: string
     createdAt: Date | string
     userId: number
-    category_app: string
   }
 
   export type HistoryExecutableUpdateWithoutPlatformInput = {
     id?: StringFieldUpdateOperationsInput | string
     pathExecutable?: StringFieldUpdateOperationsInput | string
+    filename?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category_app?: StringFieldUpdateOperationsInput | string
     executable?: ExecutableUpdateOneRequiredWithoutHistoryNestedInput
     user?: UserUpdateOneRequiredWithoutHistoryNestedInput
   }
@@ -12765,20 +14173,20 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     executableId?: StringFieldUpdateOperationsInput | string
     pathExecutable?: StringFieldUpdateOperationsInput | string
+    filename?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: IntFieldUpdateOperationsInput | number
-    category_app?: StringFieldUpdateOperationsInput | string
   }
 
   export type HistoryExecutableUncheckedUpdateManyWithoutPlatformInput = {
     id?: StringFieldUpdateOperationsInput | string
     executableId?: StringFieldUpdateOperationsInput | string
     pathExecutable?: StringFieldUpdateOperationsInput | string
+    filename?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: IntFieldUpdateOperationsInput | number
-    category_app?: StringFieldUpdateOperationsInput | string
   }
 
   export type PostCreateManyExecutableInput = {
@@ -12791,10 +14199,10 @@ export namespace Prisma {
   export type HistoryExecutableCreateManyExecutableInput = {
     id?: string
     pathExecutable: string
+    filename: string
     version: string
     createdAt: Date | string
     userId: number
-    category_app: string
     platformId: number
   }
 
@@ -12821,9 +14229,9 @@ export namespace Prisma {
   export type HistoryExecutableUpdateWithoutExecutableInput = {
     id?: StringFieldUpdateOperationsInput | string
     pathExecutable?: StringFieldUpdateOperationsInput | string
+    filename?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category_app?: StringFieldUpdateOperationsInput | string
     user?: UserUpdateOneRequiredWithoutHistoryNestedInput
     platform?: PlatformUpdateOneRequiredWithoutHistoryExecutableNestedInput
   }
@@ -12831,20 +14239,20 @@ export namespace Prisma {
   export type HistoryExecutableUncheckedUpdateWithoutExecutableInput = {
     id?: StringFieldUpdateOperationsInput | string
     pathExecutable?: StringFieldUpdateOperationsInput | string
+    filename?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: IntFieldUpdateOperationsInput | number
-    category_app?: StringFieldUpdateOperationsInput | string
     platformId?: IntFieldUpdateOperationsInput | number
   }
 
   export type HistoryExecutableUncheckedUpdateManyWithoutExecutableInput = {
     id?: StringFieldUpdateOperationsInput | string
     pathExecutable?: StringFieldUpdateOperationsInput | string
+    filename?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: IntFieldUpdateOperationsInput | number
-    category_app?: StringFieldUpdateOperationsInput | string
     platformId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -12867,9 +14275,9 @@ export namespace Prisma {
     id?: string
     executableId: string
     pathExecutable: string
+    filename: string
     version: string
     createdAt: Date | string
-    category_app: string
     platformId: number
   }
 
@@ -12920,9 +14328,9 @@ export namespace Prisma {
   export type HistoryExecutableUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     pathExecutable?: StringFieldUpdateOperationsInput | string
+    filename?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category_app?: StringFieldUpdateOperationsInput | string
     executable?: ExecutableUpdateOneRequiredWithoutHistoryNestedInput
     platform?: PlatformUpdateOneRequiredWithoutHistoryExecutableNestedInput
   }
@@ -12931,9 +14339,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     executableId?: StringFieldUpdateOperationsInput | string
     pathExecutable?: StringFieldUpdateOperationsInput | string
+    filename?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category_app?: StringFieldUpdateOperationsInput | string
     platformId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -12941,9 +14349,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     executableId?: StringFieldUpdateOperationsInput | string
     pathExecutable?: StringFieldUpdateOperationsInput | string
+    filename?: StringFieldUpdateOperationsInput | string
     version?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    category_app?: StringFieldUpdateOperationsInput | string
     platformId?: IntFieldUpdateOperationsInput | number
   }
 
